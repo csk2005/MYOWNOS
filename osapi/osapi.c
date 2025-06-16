@@ -45,14 +45,12 @@ public bool load(fd file, int8 c){
     else if(posixfd == 2){
         posixfd = 1;
     }
-    
 
     *buf = *(buf+1) = (int8)0;
     *buf = c;
 
-    n=read(posixfd, $c buf, 1);
+    n=write(posixfd, $c buf, 1);
     if(n != 1) reterr(ErrIO);
-
 
     return true;
 }
