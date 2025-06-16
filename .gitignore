@@ -1,0 +1,3 @@
+command/*.com
+command/*.o
+osapi/*.o
