@@ -23,6 +23,7 @@ typedef int8 error;
 #define ErrIO          4
 #define ErrBadFD       8
 
+#define packed __attribute__((packed));
 #define public __attribute__((visibility("default")))
 #define internal __attribute__((visibility("hidden")))
 #define private static

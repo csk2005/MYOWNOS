@@ -12,3 +12,6 @@
 private bool isopen(fd);
 private void setupfds(void);
 private void zero(int8*, int16);
+private void copy(int8*, int8*, int16);
+private int16 stringlen(int8*);
+internal int8 *strnum(int8*,int8);

@@ -4,11 +4,49 @@
 
 private int8 fds[256];
 
+private void copy(int8 *dst, int8 *src, int16 len){
+    int16 n;
+    int8 *dp, *sp;
+
+    for(dp=dst, sp=src, n=len; n>0; n--, dp++, sp++){
+        *dp = *sp;
+    }
+    return;
+}
+
+private int16 stringlen(int8 *str) {
+    int16 n = 0;
+    int8 *p;
+
+    for(p = str; *p != (int8)0; p++) {
+        n++;
+    }
+    return n;
+}
+
+internal int8 *strnum(int8 *str, int8 num){
+    static int8 buf[256];
+    int16 n;
+    int8 c;
+
+    n = stringlen(str);
+    if(!n) return str;
+    else if(n > 250) return str;
+    else if(num > 9) return str;
+
+    zero(&buf, 256);
+    copy(&buf, str, n);
+
+    c = num+30;
+    buf[n++] = c;
+    buf[n] = 0;
+
+    return buf;
+}
 
 // fd = 0 -> error
 // fd = 1 -> stdin
 // fd = 2 -> stdout
-
 
 private bool isopen(fd file){
     signed int posixfd;
@@ -23,6 +61,7 @@ private bool isopen(fd file){
 
     return true;
 }
+
 public bool load(fd file, int8 c){
     int8 buf[2];
     signed int n;
