@@ -48,3 +48,4 @@ grub.cfg
 *.qcow2
 *.vdi
 *.vmdk
+command/command.com
