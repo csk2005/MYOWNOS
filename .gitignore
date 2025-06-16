@@ -1,3 +1,50 @@
-command/*.com
-command/*.o
-osapi/*.o
+# Build artifacts
+*.o
+*.a
+*.so
+*.dll
+*.exe
+*.com
+*.bin
+*.elf
+*.img
+*.iso
+
+# OS-specific build outputs
+kernel
+bootloader
+*.map
+*.lst
+
+# IDE and editor files
+.vscode/
+.vs/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Compiler/linker generated files
+*.d
+*.dep
+*.gch
+*.pch
+
+# Debug files
+*.dSYM/
+*.pdb
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# OS development specific
+grub.cfg
+*.qcow2
+*.vdi
+*.vmdk
