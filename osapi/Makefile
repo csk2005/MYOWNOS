@@ -5,8 +5,8 @@ ldflags=
 
 all: clean osapi.o
 
-osapi.o: osapi.c osapi.h
-	cc $(flags) -c $<
+osapi.o: osapi.c osapi.h os.h
+	cc $(flags) $(CFLAGS) -c $<
 
 clean:
 	rm -f *.o
