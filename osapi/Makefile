@@ -1,12 +1,19 @@
-flags=-O2 -Wall -std=c2x
+#flags=-O2 -Wall -std=c2x
 ldflags=
+soflags=-shared -fPIC
 
 .PHONY: clean
 
-all: clean osapi.o
+all: clean osapi.so
+
+osapi.so: osapi.o disk.o
+	cc $(flags) $(ldflags) $(soflags) $^ -o $@
 
 osapi.o: osapi.c osapi.h os.h
 	cc $(flags) $(CFLAGS) -c $<
 
+disk.o: disk.c disk.h
+	cc $(flags) $(CFLAGS) -c $<
+
 clean:
-	rm -f *.o
+	rm -f *.so *.o

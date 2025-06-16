@@ -17,12 +17,14 @@ typedef int8 error;
 #define $8 (int64)
 #define $c (char *)
 #define $i (int)
-
+ 
 #define ErrNoErr       0
 #define ErrInit        1
 #define ErrIO          4
 #define ErrBadFD       8
+
 #define public __attribute__((visibility("default")))
+#define internal __attribute__((visibility("hidden")))
 #define private static
 
 #define reterr(x) do{ \

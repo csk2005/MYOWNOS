@@ -1,7 +1,7 @@
 /* command.h */
 #pragma once
 #include <stdio.h>
-#include <os.h>
+#include "os.h"
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>

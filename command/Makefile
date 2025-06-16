@@ -5,10 +5,10 @@ ldflags=
 
 all: clean clean-osapi command.com
 
-../osapi/osapi.o: ../osapi/osapi.c ../osapi/osapi.h
+../osapi/osapi.so: ../osapi/osapi.c ../osapi/osapi.h ../osapi/disk.c ../osapi/disk.h
 	$(MAKE) -C ../osapi -sk "CFLAGS=$(flags)" 
 
-command.com: command.o ../osapi/osapi.o
+command.com: command.o ../osapi/osapi.so
 	cc $(flags) $^ -o $@ $(ldflags)
 
 command.o: command.c command.h
