@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "command.h": "c"
+    },
+    "terminal.integrated.profiles.windows": {
+        "MSYS2 MinGW64": {
+            "path": "C:\\msys64\\mingw64.exe"
+        }
+    }
+}
