@@ -8,10 +8,12 @@ void dinit() {
 }
 
 void ddetach(disk *dd) {
+    int8 x;
     if(!dd) return;
-
-    attached &= ~(dd->drive) & attached;
-    free(dd);
     
+    x = ~(dd->drive) & attached;
+    attached = x;
+    destroy(dd);
+
     return;
 }

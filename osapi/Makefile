@@ -1,4 +1,4 @@
-#flags=-O2 -Wall -std=c2x
+flags=-O2 -Wall -std=c2x -I.
 ldflags=
 soflags=-shared -fPIC
 

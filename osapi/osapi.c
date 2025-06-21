@@ -15,16 +15,16 @@ private void copy(int8 *dst, int8 *src, int16 len){
 }
 
 private int16 stringlen(int8 *str) {
-    int16 n = 0;
+    int16 n;
     int8 *p;
 
-    for(p = str; *p != (int8)0; p++) {
+    for(p = str, n=0; *p; p++) {
         n++;
     }
     return n;
 }
 
-internal int8 *strnum(int8 *str, int8 num){
+public int8 *strnum(int8 *str, int8 num){
     static int8 buf[256];
     int16 n;
     int8 c;
@@ -34,10 +34,10 @@ internal int8 *strnum(int8 *str, int8 num){
     else if(n > 250) return str;
     else if(num > 9) return str;
 
-    zero(&buf, 256);
-    copy(&buf, str, n);
+    zero($1 &buf, 256);
+    copy($1 &buf, str, n);
 
-    c = num+30;
+    c = num+0x30;
     buf[n++] = c;
     buf[n] = 0;
 

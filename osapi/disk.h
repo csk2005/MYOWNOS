@@ -7,13 +7,12 @@
 #define DriveD      0x02
 #define Base        "D:\\MYOWNOS\\drives\\disk."
 
-internal struct packed s_disk {
+internal packed struct s_disk {
     int32 fd;
     int16 blocks;
-    bool attached:1;
     int8 drive:2;
 };
-typedef internal struct packed s_disk disk;
+typedef struct s_disk disk;
 
 internal disk *dattach(int8);
 internal void ddetach(disk*);
