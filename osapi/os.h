@@ -24,8 +24,13 @@ typedef int8 error;
 #define ErrBadFD       8
 
 #define packed __attribute__((packed))
-#define public __attribute__((visibility("default")))
-#define internal __attribute__((visibility("hidden")))
+#if defined(__GNUC__) && defined(__ELF__)
+ #define public __attribute__((visibility("default")))
+ #define internal __attribute__((visibility("hidden")))
+#else
+ #define public
+ #define internal
+#endif
 #define private static
 
 #define reterr(x) do{ \
@@ -51,5 +56,8 @@ public bool load(fd,int8);
 /* read 1 char */
 public int8 store(fd);
 
+internal void dinit(void);
+
+/* initialize the OS */
 public void init(void);
 

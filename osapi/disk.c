@@ -3,8 +3,20 @@
 
 internal int8 attached;
 
-void dinit() {
+public void dinit() {
+    disk* dd[2];
+    
     attached = 0;
+    *dd = dattach(1);
+    *(dd+1) = dattach(2);
+
+    printf("disk0 = 0x%.08x\n", $i dd[0]);
+    printf("disk1 = 0x%.08x\n", $i dd[1]);
+
+    ddetach(*dd);
+    ddetach(*(dd+1));
+
+    return;
 }
 
 internal void ddetach(disk *dd) {
