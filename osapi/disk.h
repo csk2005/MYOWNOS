@@ -5,7 +5,9 @@
 
 #define DriveC      0x01
 #define DriveD      0x02
-#define Base        "D:\\MYOWNOS\\drives\\disk."
+#define Base        $1 "D:\\MYOWNOS\\drives\\disk."
+
+#define Blocksize   512
 
 internal packed struct s_disk {
     int32 fd;

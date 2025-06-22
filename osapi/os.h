@@ -53,4 +53,3 @@ public int8 store(fd);
 
 public void init(void);
 
-public int8 *strnum(int8*,int8);

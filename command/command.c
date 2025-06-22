@@ -5,7 +5,6 @@ int main(int argc, char *argv[]) {
     init();
     printf("Command line arguments:\n");
     fflush(stdout);  // Force output
-    int8 *p;
 
     // int8 c;
     // c = store((int8)0);
@@ -15,8 +14,6 @@ int main(int argc, char *argv[]) {
     load((int8)1, 'X');
     printf("\n\n");
 
-    p = strnum($1 "drive.", 1);
-    printf("p = '%s'\n", p);
 
     return 0;
 }

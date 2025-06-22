@@ -4,7 +4,7 @@
 
 private int8 fds[256];
 
-private void copy(int8 *dst, int8 *src, int16 len){
+internal void copy(int8 *dst, int8 *src, int16 len){
     int16 n;
     int8 *dp, *sp;
 
@@ -24,7 +24,7 @@ private int16 stringlen(int8 *str) {
     return n;
 }
 
-public int8 *strnum(int8 *str, int8 num){
+internal int8 *strnum(int8 *str, int8 num){
     static int8 buf[256];
     int16 n;
     int8 c;
@@ -134,7 +134,7 @@ private void setupfds(){
     return;
 }
 
-private void zero(int8 *str, int16 size){
+internal void zero(int8 *str, int16 size){
     int8 *p;
     int16 n;
     for(n=size,p=str;n>0;n--,p++) *p=(int8)0;

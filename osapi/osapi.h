@@ -13,7 +13,9 @@
 #ifdef Library
  private bool isopen(fd);
  private void setupfds(void);
- private void zero(int8*, int16);
- private void copy(int8*, int8*, int16);
  private int16 stringlen(int8*);
 #endif
+
+internal int8 *strnum(int8*,int8);
+internal void zero(int8*, int16);
+internal void copy(int8*, int8*, int16);
