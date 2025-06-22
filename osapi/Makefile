@@ -1,6 +1,7 @@
 flags=-O2 -Wall -std=c2x -I.
 ldflags=
 soflags=-shared -fPIC
+CFLAGS += -fPIC
 
 .PHONY: clean
 
