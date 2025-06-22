@@ -5,10 +5,13 @@ CFLAGS += -fPIC
 
 .PHONY: clean
 
-all: clean libosapi.so
+all: clean libosapi.so libosapi.a osapi.so
 
 libosapi.so: osapi.o disk.o
-	       cc $(flags) $(ldflags) $(soflags) $^ -o $@
+	cc $(flags) $(ldflags) $(soflags) $^ -o $@
+
+libosapi.a: osapi.o disk.o
+	ar rcs $@ $^
 
 osapi.so: libosapi.so
 	ln -sf $< $@
@@ -20,4 +23,4 @@ disk.o: disk.c disk.h
 	cc $(flags) $(CFLAGS) -c $<
 
 clean:
-	rm -f *.so *.o
+	rm -f *.so *.o *.a

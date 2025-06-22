@@ -5,10 +5,10 @@ ldflags=-Wl,-rpath,'$$ORIGIN/../osapi'
 
 all: clean clean-osapi command.com
 
-../osapi/libosapi.so: ../osapi/osapi.c ../osapi/osapi.h ../osapi/disk.c ../osapi/disk.h
+../osapi/libosapi.so ../osapi/libosapi.a: ../osapi/osapi.c ../osapi/osapi.h ../osapi/disk.c ../osapi/disk.h
 	$(MAKE) -C ../osapi "CFLAGS=$(flags) -fPIC"
 
-command.com: command.o ../osapi/libosapi.so
+command.com: command.o ../osapi/libosapi.so ../osapi/libosapi.a
 	cc $(flags) $(ldflags) command.o -L../osapi -losapi -o $@
 
 command.o: command.c command.h

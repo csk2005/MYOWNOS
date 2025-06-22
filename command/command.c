@@ -7,8 +7,6 @@ int main(int argc, char *argv[]) {
     fflush(stdout);  // Force output
     int8 *p;
 
-    printf("Command line arguments:\n");
-
     // int8 c;
     // c = store((int8)0);
     // printf("c = 0x%.02hhx\n",$i c);
