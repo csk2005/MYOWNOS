@@ -19,3 +19,5 @@ typedef struct s_disk disk;
 internal disk *dattach(int8);
 internal void ddetach(disk*);
 internal void dinit(void);
+
+internal void dshow(disk*);

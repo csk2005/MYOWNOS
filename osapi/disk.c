@@ -3,6 +3,11 @@
 
 internal int8 attached;
 
+internal void dshow(disk *dd){
+    if(dd)printf("drive 0x%.02hhx\nfd=%d\nblocks=%d\n\n", (char)dd->drive,$i dd->fd,$i dd->blocks);
+    return;
+}
+
 public void dinit() {
     disk* dd[2];
     
@@ -10,9 +15,10 @@ public void dinit() {
     *dd = dattach(1);
     *(dd+1) = dattach(2);
 
-    printf("disk0 = 0x%.08x\n", $i dd[0]);
-    printf("disk1 = 0x%.08x\n", $i dd[1]);
 
+    dshow(*dd);
+    dshow(*(dd+1));
+    
     ddetach(*dd);
     ddetach(*(dd+1));
 
@@ -63,7 +69,7 @@ internal disk *dattach(int8 drive){
         return (disk *)0;
     }
 
-    dd->blocks = $2 (sbuf.st_size+Blocksize-1) / Blocksize;
+    dd->blocks = $2 ((sbuf.st_size+Blocksize-1) / Blocksize);
     dd->drive = drive;
     attached |= drive;
 
