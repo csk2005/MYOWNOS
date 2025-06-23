@@ -10,8 +10,9 @@ internal void dshow(disk *dd){
 
 public void dinit() {
     disk* dd[2];
-    block bl = {(int8)0x90};
+    block bl = {0};
     bool x;
+    
 
     attached = 0;
     *dd = dattach(1);
@@ -21,8 +22,9 @@ public void dinit() {
     dshow(*dd);
     dshow(*(dd+1));
 
-    x = dwrite(*dd, &bl, 2);
+    x = dread(*dd, &bl, 2);
     printf("x=%s\n", (x)? "true" : "false");
+    printf("0x%.02hhx\n", (char)bl[500]);
 
     ddetach(*dd);
     ddetach(*(dd+1));

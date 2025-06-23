@@ -26,7 +26,7 @@ internal void dshow(disk*);
 
 #define diskIO(func,dd,addr,block_no) ( \
     (dd) &&  \
-    (lseek($i (dd)->fd, $i ((block_no) * Blocksize), SEEK_SET) != -1) && \
+    (lseek($i (dd)->fd, $i ((block_no-1) * Blocksize), SEEK_SET) != -1) && \
     ((func)($i (dd)->fd,$c (addr), Blocksize) == Blocksize) \
 )
 #define dread(dd,addr,block_no)     diskIO(read, dd, addr, block_no) 
