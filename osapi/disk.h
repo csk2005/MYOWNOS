@@ -9,6 +9,8 @@
 
 #define Blocksize   512
 
+typedef int8 block[512];
+
 internal packed struct s_disk {
     int32 fd;
     int16 blocks;
@@ -21,3 +23,12 @@ internal void ddetach(disk*);
 internal void dinit(void);
 
 internal void dshow(disk*);
+
+#define diskIO(func,dd,addr,block_no) ( \
+    (dd) &&  \
+    (lseek($i (dd)->fd, $i ((block_no) * Blocksize), SEEK_SET) != -1) && \
+    ((func)($i (dd)->fd,$c (addr), Blocksize) == Blocksize) \
+)
+#define dread(dd,addr,block_no)     diskIO(read, dd, addr, block_no) 
+
+#define dwrite(dd,addr,block_no)    diskIO(write, dd, addr, block_no) 

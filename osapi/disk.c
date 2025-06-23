@@ -10,7 +10,9 @@ internal void dshow(disk *dd){
 
 public void dinit() {
     disk* dd[2];
-    
+    block bl = {(int8)0x90};
+    bool x;
+
     attached = 0;
     *dd = dattach(1);
     *(dd+1) = dattach(2);
@@ -18,7 +20,10 @@ public void dinit() {
 
     dshow(*dd);
     dshow(*(dd+1));
-    
+
+    x = dwrite(*dd, &bl, 2);
+    printf("x=%s\n", (x)? "true" : "false");
+
     ddetach(*dd);
     ddetach(*(dd+1));
 
@@ -28,6 +33,8 @@ public void dinit() {
 internal void ddetach(disk *dd) {
     int8 x;
     if(!dd) return;
+
+    close(dd->fd);
     
     x = ~(dd->drive) & attached;
     attached = x;
@@ -54,7 +61,7 @@ internal disk *dattach(int8 drive){
     zero($1 dd, size);
     file = strnum(Base, drive);
 
-    tmp = open($c file, O_RDONLY);
+    tmp = open($c file, O_RDWR);
     if(tmp < 3){
         free(dd);
         return (disk *)0;
