@@ -2,6 +2,7 @@
 #pragma once
 #include <stdio.h>
 #include "osapi.h"
+#include "omnistd.h"
 
 #define DriveC      0x01
 #define DriveD      0x02

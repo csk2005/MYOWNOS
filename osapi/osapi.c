@@ -1,18 +1,10 @@
 /* osapi.c */
 #define Library
 #include "osapi.h"
+#include "omnistd.h"
 
 private int8 fds[256];
 
-internal void copy(int8 *dst, int8 *src, int16 len){
-    int16 n;
-    int8 *dp, *sp;
-
-    for(dp=dst, sp=src, n=len; n>0; n--, dp++, sp++){
-        *dp = *sp;
-    }
-    return;
-}
 
 private int16 stringlen(int8 *str) {
     int16 n;
@@ -134,13 +126,6 @@ private void setupfds(){
     return;
 }
 
-internal void zero(int8 *str, int16 size){
-    int8 *p;
-    int16 n;
-    for(n=size,p=str;n>0;n--,p++) *p=(int8)0;
-
-    return;
-}
 
 public void init(void){
     errnumber = (int8)0;

@@ -17,5 +17,3 @@
 #endif
 
 internal int8 *strnum(int8*,int8);
-internal void zero(int8*, int16);
-internal void copy(int8*, int8*, int16);
