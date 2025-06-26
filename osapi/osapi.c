@@ -126,7 +126,6 @@ private void setupfds(){
     return;
 }
 
-
 public void init(void){
     errnumber = (int8)0;
     setupfds();

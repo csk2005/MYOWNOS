@@ -84,3 +84,10 @@ internal disk *dattach(int8 drive){
 
     return dd;
 }
+
+internal int16 openfiles(disk *dd) {
+    return 0;
+}
+internal void closeallfiles(disk *dd) {
+    return;
+}

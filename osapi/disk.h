@@ -21,9 +21,10 @@ typedef struct s_disk disk;
 
 internal disk *dattach(int8);
 internal void ddetach(disk*);
-internal void dinit(void);
 
 internal void dshow(disk*);
+internal int16 openfiles(disk*);
+internal void closeallfiles(disk*);
 
 #define diskIO(func,dd,addr,block_no) ( \
     (dd) &&  \

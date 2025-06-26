@@ -11,7 +11,14 @@
 #define PtrPerBlock     (256)
 
 typedef int16 ptr;
-typedef int8 bootsector;
+typedef int8 bootsector[500];
+typedef bool bitmap;
+
+internal packed enum {
+    TypeNotValid = 0x00,
+    TypeFile = 0x01,
+    TypeDir = 0x03
+};
 
 internal packed struct s_superblock{
     bootsector boot;
@@ -39,11 +46,7 @@ internal packed struct s_filename {
 typedef struct s_filename filename;
 
 internal packed struct s_inode {
-    struct {
-        int8 _:4;
-        int8 type:3;
-        bool valid:1;
-    } validtype;
+    int8 validtype;
     int16 size;
     filename name;
     ptr indirect;
@@ -59,5 +62,8 @@ internal packed union u_fsblock{
 };
 typedef union u_fsblock fsblock;
 
-filesystem *fsformat(disk*, bootsector*);
- 
+internal filesystem *fsformat(disk*, bootsector*, bool);
+internal bitmap *mkbitmap(filesystem*, bool);
+internal int16 bitmapalloc(filesystem*, bitmap*);
+internal void bitmapfree(filesystem*, bitmap*, int16);
+
