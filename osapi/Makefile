@@ -28,7 +28,7 @@ omnistd.o: omnistd.c omnistd.h
 fs.o: fs.c fs.h
 	cc $(flags) $(CFLAGS) -c $<
 
-diskutil: diskutil.c osapi.so
+diskutil: diskutil.o osapi.o disk.o omnistd.o fs.o
 	cc $(flags) $(CFLAGS) $^ -o $@
 	mv -f diskutil ../util
 
