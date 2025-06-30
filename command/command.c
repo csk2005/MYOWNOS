@@ -9,10 +9,10 @@ int main(int argc, char *argv[]) {
     // printf("c = 0x%.02hhx\n",$i c);
     // printf("errornumber = 0x%.02hhx\n",$i errnumber);
 
-    load((int8)1, 'X');
-    printf("\n\n");
+    //load((int8)1, 'X');
+    //printf("\n\n");
 
-    dinit();
+    //dinit();
 
 
     return 0;

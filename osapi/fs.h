@@ -20,7 +20,7 @@ internal packed enum {
     TypeDir = 0x03
 };
 
-internal packed struct s_superblock{
+internal struct s_superblock{
     bootsector boot;
     int16 _;
     int16 blocks;
@@ -28,38 +28,38 @@ internal packed struct s_superblock{
     int16 inodes;
     int16 magic1;
     int16 magic2;
-};
+} packed;
 typedef struct s_superblock superblock;
 
-internal packed struct s_filesystem {
+internal struct s_filesystem {
     int8 drive;
     disk* dd;
     bool *bitmap;
     superblock metadata;
-};
+} packed;
 typedef struct s_filesystem filesystem;
 
-internal packed struct s_filename {
+internal struct s_filename {
     int8 name[8];
     int8 ext[3];
-}; 
+} packed; 
 typedef struct s_filename filename;
 
-internal packed struct s_inode {
+internal struct s_inode {
     int8 validtype;
     int16 size;
     filename name;
     ptr indirect;
     ptr direct[PtrPerInode];
-};
+} packed;
 typedef struct s_inode inode;
 
-internal packed union u_fsblock{
+internal union u_fsblock{
     superblock super;
     int8 data[Blocksize];
     ptr pointers[PtrPerBlock];
     inode inodes[InodesPerBlock];
-};
+} packed;
 typedef union u_fsblock fsblock;
 
 internal filesystem *fsformat(disk*, bootsector*, bool);
