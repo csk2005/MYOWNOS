@@ -47,14 +47,15 @@ void cmd_format(char *arg1,char *arg2){
     }
 
     if(bootable){
-        fprintf(stderr, "Formatting drive %c: as bootable...\n", *drivestr);
+        fprintf(stderr, "Bootable currently not supported\n");
+        exit(-1);
     }
 
     printf("This will format and ERASE your disk %s\n Force? (y/n): ", drivestr);
     fflush(stdout);
 
     scanf("%c", &force);
-    bforce = (force == 'y' || force == 'Y') ? true : false;
+    bforce = ((force == 'y' || force == 'Y') ? true : false);
 
     printf("Formatting disk %c:...\n", *drivestr);
 
@@ -72,7 +73,7 @@ void cmd_format(char *arg1,char *arg2){
 }
 
 void usage(char *arg) {
-    fprintf(stderr, "Bootable currently not supported\n");
+    fprintf(stderr, "Usage: %s <command> [arguments]\nAvailable commands: format\n", arg);
     exit(-1);
 }
 
