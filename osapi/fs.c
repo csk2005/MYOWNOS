@@ -130,12 +130,13 @@ filesystem *fsformat(disk *dd, bootsector *mbr, bool force){
     fs->dd = dd;
     copy($1 &fs->metadata, $1 &super, Blocksize);
 
-    bm = mkbitmap(fs, false);
-    size = 1+1+fs->metadata.inodeblocks;
-    for(n=0; n<size; n++){
-        bm[n]=true;
-    }
-    fs->bitmap = bm;
+    // bm = mkbitmap(fs, false);
+    // size = 1+1+fs->metadata.inodeblocks;
+    // for(n=0; n<size; n++){
+    //     bm[n]=true;
+    // }
+    // fs->bitmap = bm;
+    fs->bitmap = 0;
 
     return fs;
 }
