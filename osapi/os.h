@@ -63,7 +63,7 @@ public bool load(fd,int8);
 /* read 1 char */
 public int8 store(fd);
 
-internal void dinit(void);
+public void dinit(void);
 
 /* initialize the OS */
 public void init(void);
