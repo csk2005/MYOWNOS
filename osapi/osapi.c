@@ -6,15 +6,6 @@
 private int8 fds[256];
 
 
-private int16 stringlen(int8 *str) {
-    int16 n;
-    int8 *p;
-
-    for(p = str, n=0; *p; p++) {
-        n++;
-    }
-    return n;
-}
 
 internal int8 *strnum(int8 *str, int8 num){
     static int8 buf[256];

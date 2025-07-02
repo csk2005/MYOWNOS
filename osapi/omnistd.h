@@ -10,6 +10,7 @@
 
 internal void zero(int8*, int16);
 internal void memorycopy(int8*, int8*, int16, bool);
+internal int16 stringlen(int8*);
 
 internal bool getbit(int8*, int16);
 internal void setbit(int8*, int16, bool);

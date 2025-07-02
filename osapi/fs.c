@@ -150,3 +150,82 @@ filesystem *fsformat(disk *dd, bootsector *mbr, bool force){
 
     return fs;
 }
+
+internal void fsshow(filesystem *fs, bool showbm){
+    int8 drivechar;
+    ptr inodeno;
+    inode *ino;
+    
+    if(!fs)return;
+
+    if(fs->drive == 1||fs->drive == 2){
+        drivechar = (int8)('A' + fs->drive - 1);
+    }
+    else drivechar = '?';
+
+    printf("Disk 0x%.02hhx, mounted on %c:\n",(char)fs->drive, (char)drivechar);
+
+    printf("  %d total blocks, 1 superblock and %d inode blocks\n    containing %d inodes\n\n",
+         $i fs->dd->blocks, $i fs->metadata.inodeblocks, $i fs->metadata.inodes);
+    
+    for(inodeno=0; inodeno<fs->metadata.inodes; inodeno++){
+        ino = findinode(fs, inodeno);
+        if(!ino) break;
+
+        if((ino->validtype & 0x01)){
+            printf("Inode %d is valid\n  type: %s\n  filename: %s\n  size: %d bytes\n",
+                $i inodeno, (ino->validtype == TypeFile)? "File" : (ino->validtype == TypeDir)? "Directory" : "Unknown",
+                (!inodeno)? "/" : $c file2str(&ino->name), $i ino->size);
+        }
+    }
+}
+
+internal inode *findinode(filesystem* fs, ptr idx){
+    fsblock bl;
+    int16 n, size;
+    bool res;
+    inode* ret;
+    ptr x, y;
+
+    if(!fs) return (inode *)0;
+
+    ret = (inode *)0;
+    for(n=0,x=2; x<=(fs->metadata.inodeblocks+1); x++){
+        zero($1 &bl, Blocksize);
+        res = dread(fs->dd, $1 &bl.data, x);
+
+        if(!res) return ret;
+
+        for(y=0;y<InodesPerBlock; y++){
+            if(n==idx){
+                size = sizeof(inode);
+                ret = (inode *)alloc(size);
+                if(!ret) return ret;
+                zero($1 ret, size);
+                copy($1 ret, $1 &bl.inodes[y], size);
+                break;
+            }
+            n++;
+        }
+    }
+    return ret;
+}
+
+internal int8 *file2str(filename *fname){
+    static int8 buf[16];
+    int8 *p;
+    int16 n;
+    if(!(*fname->ext)) return fname->name;
+    zero($1 buf, 16);
+
+    strcopy($1 &buf,$1 fname->name, 8);
+    n = stringlen(buf);
+    n++;
+    buf[n++] = '.';
+    p = buf+n;
+
+    strcopy(p, fname->ext, 3);
+    p=buf+n;
+
+    return p;
+} 

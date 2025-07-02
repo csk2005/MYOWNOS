@@ -66,4 +66,6 @@ internal filesystem *fsformat(disk*, bootsector*, bool);
 internal bitmap *mkbitmap(filesystem*, bool);
 internal int16 bitmapalloc(filesystem*, bitmap*);
 internal void bitmapfree(filesystem*, bitmap*, int16);
-
+internal void fsshow(filesystem*,bool);
+internal inode *findinode(filesystem*, ptr);
+internal int8 *file2str(filename *);

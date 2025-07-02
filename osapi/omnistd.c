@@ -37,6 +37,16 @@ internal bool getbit(int8 *str, int16 pos){
     return bit;
 }
 
+internal int16 stringlen(int8 *str) {
+    int16 n;
+    int8 *p;
+
+    for(p = str, n=0; *p; p++) {
+        n++;
+    }
+    return n;
+}
+
 internal void setbit(int8 *str, int16 pos, bool value){
     int16 blocks;
     int8 mod;
