@@ -137,29 +137,20 @@ filesystem *fsformat(disk *dd, bootsector *mbr, bool force){
     }
     fs->bitmap = bm;
 
-    // printf("bitmap = ");
-    // fflush(stdout);
-
-    // for(n=0; n<fs->dd->blocks; n++){
-    //     if(getbit($1 bm, n))printf("1");
-    //     else printf("0");
-    //     if(n%8==7)printf(" ");
-    //     if(n%64==63)printf("\n");
-    // }
-    // printf("\n\n");
-
+    fsshow(fs, true);
+    
     return fs;
 }
 
 internal void fsshow(filesystem *fs, bool showbm){
     int8 drivechar;
-    ptr inodeno;
+    ptr inodeno, n;
     inode *ino;
     
     if(!fs)return;
 
     if(fs->drive == 1||fs->drive == 2){
-        drivechar = (int8)('A' + fs->drive - 1);
+        drivechar = (int8)('c' + fs->drive - 1);
     }
     else drivechar = '?';
 
@@ -173,11 +164,24 @@ internal void fsshow(filesystem *fs, bool showbm){
         if(!ino) break;
 
         if((ino->validtype & 0x01)){
-            printf("Inode %d is valid\n  type: %s\n  filename: %s\n  size: %d bytes\n",
+            printf("Inode %d is valid\n  type: %s\n  name: %s\n  size: %d bytes\n",
                 $i inodeno, (ino->validtype == TypeFile)? "File" : (ino->validtype == TypeDir)? "Directory" : "Unknown",
                 (!inodeno)? "/" : $c file2str(&ino->name), $i ino->size);
         }
     }
+    printf("\n");
+
+    if(showbm && fs->bitmap){
+        printf("Bitmap: \n");
+        fflush(stdout);
+        for(n = 0; n < fs->metadata.blocks; n++){
+            printf("%d", getbit($1 fs->bitmap, n));
+            if((n+1) % 8 == 0) printf(" ");
+            if((n+1) % 64 == 0) printf("\n");
+        } 
+    }
+    printf("\n\n");
+
 }
 
 internal inode *findinode(filesystem* fs, ptr idx){
@@ -190,7 +194,7 @@ internal inode *findinode(filesystem* fs, ptr idx){
     if(!fs) return (inode *)0;
 
     ret = (inode *)0;
-    for(n=0,x=2; x<=(fs->metadata.inodeblocks+1); x++){
+    for(n=0,x=2; x<(fs->metadata.inodeblocks); x++){
         zero($1 &bl, Blocksize);
         res = dread(fs->dd, $1 &bl.data, x);
 
@@ -203,7 +207,7 @@ internal inode *findinode(filesystem* fs, ptr idx){
                 if(!ret) return ret;
                 zero($1 ret, size);
                 copy($1 ret, $1 &bl.inodes[y], size);
-                break;
+                return ret;
             }
             n++;
         }
