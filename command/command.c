@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
     //load((int8)1, 'X');
     //printf("\n\n");
 
-    //dinit();
+    dinit();
 
 
     return 0;
