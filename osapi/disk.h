@@ -3,14 +3,17 @@
 #include <stdio.h>
 #include "osapi.h"
 #include "omnistd.h"
+//#include "fs.h"
 
 #define DriveC      0x01
 #define DriveD      0x02
 #define Base        $1 "D:\\MYOWNOS\\drives\\disk."
+#define Maxdrive    0x02
 
 #define Blocksize   512
 
 typedef int8 block[512];
+
 
 internal packed struct s_disk {
     int32 fd;

@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include "osapi.h"
 
+#define osprintf(f, ...) printf(f "\n", ##__VA_ARGS__)
+
 #define copy(dst, src, len) memorycopy(dst, src, len, false)
 #define strcopy(dst, src, len) memorycopy(dst, src, len, true)
 #define getbit_(bit, pos) ((bit >> pos) & (1))

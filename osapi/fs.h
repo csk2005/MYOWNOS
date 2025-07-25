@@ -2,6 +2,7 @@
 #pragma once
 #include <stdio.h>
 #include "osapi.h"
+#include "omnistd.h"
 #include "disk.h"
 
 #define Magic1          (0xdd05)
@@ -69,3 +70,6 @@ internal void bitmapfree(filesystem*, bitmap*, int16);
 internal void fsshow(filesystem*,bool);
 internal inode *findinode(filesystem*, ptr);
 internal int8 *file2str(filename *);
+
+internal filesystem *fsmount(int8);
+internal void fsunmount(filesystem *);

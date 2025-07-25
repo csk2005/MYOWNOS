@@ -233,3 +233,61 @@ internal int8 *file2str(filename *fname){
 
     return p;
 } 
+
+extern public disk *DiskDescriptor[Maxdrive];
+public filesystem *FSdescriptor[Maxdrive];
+internal filesystem *fsmount(int8 drive){
+    ptr idx;
+    disk *dd;
+    filesystem *fs;
+    int16 size;
+
+    if((drive < 1) || (drive > Maxdrive)) return (filesystem *)0;
+    idx = drive - 1;
+
+    dd = DiskDescriptor[idx];
+    if(!dd) return (filesystem *)0;
+
+    size = sizeof(filesystem);
+    fs = (filesystem *)alloc(size);
+
+    fs = (filesystem *)alloc(size);
+    if(!fs) return (filesystem *)0;
+    zero($1 fs, size);
+
+    fs->drive = drive;
+    fs->dd = dd;
+    fs->bitmap = mkbitmap(fs, true);
+    if(!fs->bitmap) {
+        destroy(fs);
+        return (filesystem *)0;
+    }
+
+    if(!dread(fs->dd, &fs->metadata, 1)) {
+        destroy(fs);
+        return (filesystem *)0;
+    }
+    osprintf("Mounted disk 0x%x on drive %c:\n", drive, (drive==1)? 'c' : ((drive==2)? 'd' : '?'));
+
+    FSdescriptor[idx] = fs;
+
+    return fs;
+
+}
+
+internal void fsunmount(filesystem *fs){
+    ptr idx;
+    int16 drive;
+
+    if(!fs) return;
+
+    drive = fs->dd->drive;
+    idx  = (drive-1);
+    FSdescriptor[idx] = (filesystem *)0;
+    destroy(fs);
+
+    osprintf("Unmounted drive %c:", (drive==1)?  'c' : ((drive==2)? 'd' : '?'));
+
+    return;
+
+}

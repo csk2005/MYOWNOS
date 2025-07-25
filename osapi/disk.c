@@ -8,27 +8,49 @@ internal void dshow(disk *dd){
     return;
 }
 
+internal packed enum {
+    TypeNotValid = 0x00,
+    TypeFile = 0x01,
+    TypeDir = 0x03
+};
+
+typedef int8 bootsector[500];
+
+internal struct s_superblock{
+    bootsector boot;
+    int16 _;
+    int16 blocks;
+    int16 inodeblocks;
+    int16 inodes;
+    int16 magic1;
+    int16 magic2;
+} packed;
+typedef struct s_superblock superblock;
+
+internal struct s_filesystem {
+    int8 drive;
+    disk* dd;
+    bool *bitmap;
+    superblock metadata;
+} packed;
+typedef struct s_filesystem filesystem;
+
+internal filesystem *fsmount(int8);
+
+public disk *DiskDescriptor[Maxdrive];
 public void dinit() {
-    disk* dd[2];
-    block bl = {0};
-    bool x;
+    int8 n;
     
-
     attached = 0;
-    *dd = dattach(1);
-    *(dd+1) = dattach(2);
+    for(n=1; n<=Maxdrive; n++){  
+       *(DiskDescriptor+ (n-1)) = dattach(n);
+    }
 
+    if(*DiskDescriptor) fsmount(1);
 
-    dshow(*dd);
-    dshow(*(dd+1));
-
-    x = dread(*dd, &bl, 2);
-    printf("x=%s\n", (x)? "true" : "false");
-    printf("0x%.02hhx\n", (char)bl[500]);
-
-    ddetach(*dd);
-    ddetach(*(dd+1));
-
+    for(n=1; n<=Maxdrive; n++){
+       ddetach(DiskDescriptor[n-1]);
+    }
     return;
 }
 
