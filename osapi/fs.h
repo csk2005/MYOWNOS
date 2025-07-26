@@ -1,8 +1,6 @@
 /* fs.h */
 #pragma once
 #include <stdio.h>
-#include "osapi.h"
-#include "omnistd.h"
 #include "disk.h"
 
 #define Magic1          (0xdd05)

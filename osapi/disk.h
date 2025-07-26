@@ -1,7 +1,6 @@
 /* disk.h */
 #pragma once
 #include <stdio.h>
-#include "osapi.h"
 #include "omnistd.h"
 //#include "fs.h"
 
